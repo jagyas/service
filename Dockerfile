@@ -1,5 +1,5 @@
 
-FROM node:12-alpine AS BUILD_IMAGE
+FROM node:alpine AS BUILD_IMAGE
 
 # couchbase sdk requirements
 RUN apk update && apk add yarn curl bash python g++ make && rm -rf /var/cache/apk/*
@@ -36,7 +36,7 @@ RUN rm -rf node_modules/rxjs/_esm2015/
 RUN rm -rf node_modules/swagger-ui-dist/*.map
 RUN rm -rf node_modules/couchbase/src/
 
-FROM node:12-alpine
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
