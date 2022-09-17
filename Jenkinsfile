@@ -14,7 +14,7 @@ pipeline {
       steps {
         container("kaniko") {
           sh "cat /kaniko/.docker/config.json"
-          sh "/kaniko/executor --context `pwd` --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:latest"
+          sh "/kaniko/executor --context `pwd` --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:1"
         }
       }
     }
