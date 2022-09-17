@@ -19,21 +19,18 @@ pipeline {
       }
     }
     stage("Create") {
-      when { changeRequest target: "master" }
       steps {
         container("knative") {
           sh "kn service create backend --port 8080"
         }
       }
     }
-    stage("Deploy") {
+    stage("Test") {
       when { branch "master" }
       steps {
-        container("kustomize") {
+        container("knative") {
           sh """
-            cd kustomize/overlays/production
-            kustomize edit set image ${REGISTRY_USER}/${PROJECT}=${REGISTRY_USER}/${PROJECT}:$BRANCH_NAME-${BUILD_NUMBER}
-            kustomize build . | kubectl apply --filename -
+            kn service list
           """
         }
       }
