@@ -16,11 +16,6 @@ spec:
     volumeMounts:
     - name: kaniko-secret
       mountPath: /kaniko/.docker/
-  - name: kustomize
-    image: nekottyo/kustomize-kubeval
-    command:
-    - cat
-    tty: true
   volumes:
   - name: kaniko-secret
     secret:
