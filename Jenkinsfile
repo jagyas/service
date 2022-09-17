@@ -18,23 +18,11 @@ pipeline {
         }
       }
     }
-    stage("Test") {
+    stage("Create") {
       when { changeRequest target: "master" }
       steps {
-        container("kustomize") {
-          sh """
-            set +e
-            kubectl create namespace $PROJECT-${env.BRANCH_NAME.toLowerCase()}
-            set -e
-            cd kustomize/overlays/preview
-            kustomize edit set namespace $PROJECT-${env.BRANCH_NAME.toLowerCase()}
-            kustomize edit set image $REGISTRY_USER/$PROJECT=$REGISTRY_USER/$PROJECT:${env.BRANCH_NAME.toLowerCase()}-$BUILD_NUMBER
-            cat ingress.yaml | sed -e "s@host: @host: ${env.BRANCH_NAME.toLowerCase()}@g" | tee ingress.yaml
-            kustomize build . | kubectl apply --filename -
-            kubectl --namespace $PROJECT-${env.BRANCH_NAME.toLowerCase()} rollout status deployment jenkins-demo
-          """
-          sh "curl http://${env.BRANCH_NAME.toLowerCase()}$PROJECT.3.67.0.140.nip.io"
-          sh "kubectl delete namespace $PROJECT-${env.BRANCH_NAME.toLowerCase()}"
+        container("knative") {
+          sh "kn service create backend --port 8080"
         }
       }
     }
