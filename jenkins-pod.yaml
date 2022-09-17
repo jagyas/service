@@ -11,7 +11,7 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
-    - cat
+    - cat /kaniko/.docker/config.json
     tty: true
     volumeMounts:
     - name: kaniko-secret
