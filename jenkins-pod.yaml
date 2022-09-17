@@ -16,6 +16,11 @@ spec:
     volumeMounts:
     - name: kaniko-secret
       mountPath: /kaniko/.docker/
+  - name: knative
+    image: gcr.io/knative-releases/knative.dev/client/cmd/kn:latest
+    command:
+    - cat
+    tty: true
   volumes:
   - name: kaniko-secret
     secret:
