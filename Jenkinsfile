@@ -13,7 +13,7 @@ pipeline {
     stage("Build") {
       steps {
         container("kaniko") {
-          sh "ls /kaniko/.docker"
+          sh "cat /kaniko/.docker/config.json"
           sh "/kaniko/executor --context `pwd` --destination ${REGISTRY_USER}/${PROJECT}:latest"
         }
       }
