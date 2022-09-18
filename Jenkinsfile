@@ -11,9 +11,6 @@ pipeline {
   }
   stages {
     stage("Build") {
-      environment {
-        PATH = "/busybox:/kaniko:$PATH"
-      }
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
           sh '''#!/busybox/sh
