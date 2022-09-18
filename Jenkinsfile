@@ -14,7 +14,7 @@ pipeline {
       steps {
         container("kaniko") {
           sh "cat /kaniko/.docker/config.json"
-          sh "/kaniko/executor --context `pwd`  --destination ${REGISTRY_USER}/${PROJECT}:1  --cache=true --cache-copy-layers --cache-repo=jagyas/cache -v trace"
+          sh "/kaniko/executor --context `pwd`  --no-ush  --cache=true --cache-copy-layers --cache-repo=jagyas/cache -v trace"
           sh """echo "Image build completed" """
         }
       }
