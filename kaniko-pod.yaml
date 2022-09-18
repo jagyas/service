@@ -6,18 +6,11 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest 
-    args: ["--dockerfile=./packages/webapp/Dockerfile",
-            "--context=git://github.com/jagyas/anylearn1",
-            "--destination=jagyas/test",
+    args: ["--context=git://github.com/jagyas/service",
+            "--destination=jagyas/service",
             "--cache=true",
             "--cache-copy-layers",
             "--cache-repo=jagyas/cache"]
-    env:
-      - name: GIT_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: git-token
-            key: GIT_TOKEN
     volumeMounts:
     - name: kaniko-cache
       mountPath: /cache
@@ -27,10 +20,10 @@ spec:
   volumes:
   - name: docker-config
     secret:
-      secretName: docker-regcred
+      secretName: regcred
       items:
           - key: .dockerconfigjson
             path: config.json
   - name: kaniko-cache
     persistentVolumeClaim:
-            claimName: kaniko-cache-claim
+            claimName: jenkins-pv-claim
