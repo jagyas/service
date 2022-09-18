@@ -13,7 +13,7 @@ pipeline {
     stage("Build") {
       steps {
         container("kaniko") {
-          sh "/kaniko/executor --context `pwd` --force --insecure --skip-tls-verify --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:1  --cache=true --cache-copy-layers --cache-repo=jagyas/cache --digest-file=/dev/termination-log "
+          sh "/kaniko/executor --context `pwd`  --destination ${REGISTRY_USER}/${PROJECT}:${env.BRANCH_NAME.toLowerCase()}-${BUILD_NUMBER}"
         }
       }
     }
