@@ -6,12 +6,16 @@ spec:
   - name: shell
     image: alpine
     command:
-    - cat
+    - sleep
+    args:
+      - 30m
     tty: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
-    - cat
+    - sleep
+    args:
+      - 30m
     tty: true
     volumeMounts:
     - name: kaniko-cache
@@ -21,7 +25,9 @@ spec:
   - name: knative
     image: gcr.io/knative-releases/knative.dev/client/cmd/kn:latest
     command:
-    - cat
+    - sleep
+    args:
+      - 30m
     tty: true
   volumes:
   - name: kaniko-secret
