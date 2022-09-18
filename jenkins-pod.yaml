@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 spec:
-  serviceAccount: jenkins
+  serviceAccount: jenkins-admin
   containers:
   - name: shell
     image: alpine
@@ -36,4 +36,4 @@ spec:
         path: config.json
   - name: kaniko-cache
     persistentVolumeClaim:
-      claimName: jenkins
+      claimName: jenkins-pv-claim
