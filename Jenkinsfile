@@ -13,8 +13,9 @@ pipeline {
     stage("Build") {
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
-          sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd`  --destination jagyas/service:1
+          sh '''
+          ls
+          kubectl apply -f kaniko-pod.yaml
           '''
         }
       }
