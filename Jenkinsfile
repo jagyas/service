@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage("Build") {
       steps {
-        container(name: 'kaniko', shell: '/busybox/sh') {
+        container(name: 'kaniko') {
           sh '''
           ls
           kubectl apply -f kaniko-pod.yaml
