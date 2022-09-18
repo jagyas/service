@@ -14,6 +14,8 @@ spec:
     - cat
     tty: true
     volumeMounts:
+    - name: kaniko-cache
+      mountPath: /cache
     - name: kaniko-secret
       mountPath: /kaniko/.docker/
   - name: knative
@@ -28,3 +30,6 @@ spec:
       items:
       - key: .dockerconfigjson
         path: config.json
+  - name: kaniko-cache
+    persistentVolumeClaim:
+      claimName: jenkins-pv-claim
