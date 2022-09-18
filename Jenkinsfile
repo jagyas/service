@@ -14,8 +14,8 @@ pipeline {
       steps {
         container("kaniko") {
           sh "cat /kaniko/.docker/config.json"
-          sh "/kaniko/executor --context `pwd` "
-          sh """echo "Image build completed"  --destination ${REGISTRY_USER}/${PROJECT}:1 -v"""
+          sh "/kaniko/executor --context `pwd`  --destination ${REGISTRY_USER}/${PROJECT}:1 -v"
+          sh """echo "Image build completed" """
         }
       }
     }
