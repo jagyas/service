@@ -11,9 +11,21 @@ pipeline {
   }
   stages {
     stage("Build") {
+      environment {
+        PATH = "/busybox:/kaniko:$PATH"
+      }
       steps {
-        container("kaniko") {
-          sh "/kaniko/executor --context `pwd`  --destination ${REGISTRY_USER}/${PROJECT}:${env.BRANCH_NAME.toLowerCase()}-${BUILD_NUMBER} --cleanup"
+        container(name: 'kaniko', shell: '/busybox/sh') {
+
+          writeFile file: "Dockerfile", text: """
+            FROM jenkins/agent
+            MAINTAINER CloudBees Support Team <dse-team@cloudbees.com>
+            RUN mkdir /home/jenkins/.m2
+          """
+
+          sh '''#!/busybox/sh
+            /kaniko/executor --context `pwd`  --destination ${REGISTRY_USER}/${PROJECT}:${env.BRANCH_NAME.toLowerCase()}-${BUILD_NUMBER}
+          '''
         }
       }
     }
