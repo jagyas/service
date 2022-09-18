@@ -13,9 +13,7 @@ pipeline {
     stage("Build") {
       steps {
         container("kaniko") {
-          sh "cat /kaniko/.docker/config.json"
-          sh "/kaniko/executor --context `pwd` --insecure --skip-tls-verify --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:1  --cache=true --cache-copy-layers --cache-repo=jagyas/cache"
-          sh """echo "Image build completed" """
+          sh """/kaniko/executor --context `pwd` --insecure --skip-tls-verify --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:1  --cache=true --cache-copy-layers --cache-repo=jagyas/cache"""
         }
       }
     }
