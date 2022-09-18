@@ -13,7 +13,7 @@ pipeline {
     stage("Build") {
       steps {
         container("kaniko") {
-          sh """/kaniko/executor --context `pwd` --insecure --skip-tls-verify --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:1  --cache=true --cache-copy-layers --cache-repo=jagyas/cache"""
+          sh """/kaniko/executor -f --context `pwd` --insecure --skip-tls-verify --destination jagyas/service:latest --destination ${REGISTRY_USER}/${PROJECT}:1  --cache=true --cache-copy-layers --cache-repo=jagyas/cache"""
         }
       }
     }
