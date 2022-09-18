@@ -36,4 +36,4 @@ spec:
         path: config.json
   - name: kaniko-cache
     persistentVolumeClaim:
-      claimName: jenkins-pv-claim
+      claimName: jenkins
