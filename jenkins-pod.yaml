@@ -13,9 +13,7 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
-    - sleep
-    args:
-      - 30m
+    - cat $STACKLOG_PATH
     tty: true
     volumeMounts:
     - name: kaniko-cache
