@@ -6,7 +6,7 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest 
-    args: ["--context=git://github.com/jagyas/service",
+    args: ["--context=git://github.com/jagyas/service:0.0.1",
             "--destination=jagyas/service",
             "--cache=true",
             "--cache-copy-layers",
