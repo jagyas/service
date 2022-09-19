@@ -15,7 +15,7 @@ pipeline {
         container(name: 'kaniko') {
           sh '''
           kubectl delete pod kaniko -n jenkins
-          template=`cat "kaniko-pod.yml" | sed -i "s#$jagyas/service:0.0.[0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#"`
+          template=`cat "kaniko-pod.yaml" | sed -i "s#$jagyas/service:0.0.[0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#"`
           echo "$template" | kubectl apply -f -
           sleep 10
           kubectl logs -l pod=kanikp -n jenkins
