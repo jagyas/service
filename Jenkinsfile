@@ -26,7 +26,7 @@ pipeline {
     stage("Create") {
       steps {
         container("knative") {
-          sh "kn service create backend --image jagyas/service:0.0.${BUILD_NUMBER} --port 3000 -n default"
+          sh "kn service update backend --image jagyas/service:0.0.${BUILD_NUMBER} -n default"
         }
       }
     }
