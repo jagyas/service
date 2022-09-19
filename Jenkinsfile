@@ -17,7 +17,7 @@ pipeline {
           kubectl delete pod kaniko -n jenkins
           kubectl apply -f kaniko-pod.yaml
           sleep 10
-          kubectl logs -f kaniko -n jenkins
+          kubectl logs -l pod=kanikp -n jenkins
           '''
         }
       }
