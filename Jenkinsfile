@@ -14,7 +14,7 @@ pipeline {
       steps {
         container(name: 'kaniko') {
           sh '''
-          ls
+          kubectl delete pod kaniko -n jenkins
           kubectl apply -f kaniko-pod.yaml
           '''
         }
