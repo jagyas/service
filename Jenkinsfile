@@ -18,7 +18,7 @@ pipeline {
           template=`cat "kaniko-pod.yaml" | sed "s#$:0.0.[0-9]\\+#:0.0.${BUILD_NUMBER}#"`
           echo "$template" | kubectl apply -f -
           sleep 10
-          kubectl logs -l pod=kaniko -n jenkins
+          kubectl logs -l pod=kaniko -f -n jenkins
           '''
         }
       }
