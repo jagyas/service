@@ -15,11 +15,6 @@ spec:
     command:
     - cat
     tty: true
-    volumeMounts:
-    - name: kaniko-cache
-      mountPath: /cache
-    - name: kaniko-secret
-      mountPath: /kaniko/.docker/
   - name: knative
     image: gcr.io/knative-releases/knative.dev/client/cmd/kn:latest
     command:
@@ -27,13 +22,3 @@ spec:
     args:
       - 30m
     tty: true
-  volumes:
-  - name: kaniko-secret
-    secret:
-      secretName: regcred
-      items:
-      - key: .dockerconfigjson
-        path: config.json
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: jenkins-pv-claim
