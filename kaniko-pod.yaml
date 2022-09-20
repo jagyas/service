@@ -13,6 +13,7 @@ spec:
             "--destination=jagyas/service:0.0.1",
             "--cache=true",
             "--cache-copy-layers",
+            "--cache-repo=jagyas/cache",
             "--cache-dir=/cache"]
     volumeMounts:
     - name: kaniko-cache
