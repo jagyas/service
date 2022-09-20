@@ -11,12 +11,11 @@ pipeline {
   }
   stages {
     stage("Build") {
-      git url: 'https://github.com/jagyas/service.git', branch: 'master'
       steps {
         container(name: 'kaniko') {
           sh '''
-          cd service
           kubectl delete pod kaniko -n jenkins --ignore-not-found=true
+          git clone https://github.com/jagyas/service.git
           sed -i "s#jagyas/service:0.0.[a-zA-Z0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#" kaniko-pod.yaml
           kubectl apply -f kaniko-pod.yaml
           sleep 10
