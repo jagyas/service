@@ -28,7 +28,6 @@ pipeline {
         container(name: 'kaniko') {
           sh '''
           sed -i "s#jagyas/service:0.0.[a-zA-Z0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#" backend-service.yaml
-          cat backend-service.yaml
           kubectl apply -f backend-service.yaml
           '''
         }
@@ -39,7 +38,7 @@ pipeline {
       steps {
         container("knative") {
           sh """
-            kn service list
+            kn service list -n default | grep backend
           """
         }
       }
