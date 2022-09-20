@@ -6,7 +6,7 @@ pipeline {
     }
   }
   environment {
-    PROJECT = "service"
+    SERVICE = "service"
     REGISTRY_USER = "jagyas"
   }
   stages {
@@ -15,7 +15,7 @@ pipeline {
         container(name: 'kube') {
           sh '''
           kubectl delete pod kaniko -n jenkins --ignore-not-found=true
-          sed -i "s#jagyas/service:0.0.[a-zA-Z0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#" kaniko-pod.yaml
+          sed -i "s#${REGISTRY_USER}/${SERVICE}:0.0.[a-zA-Z0-9]\\+#${REGISTRY_USER}/${SERVICE}:0.0.${BUILD_NUMBER}#" kaniko-pod.yaml
           kubectl apply -f kaniko-pod.yaml
           sleep 10
           kubectl logs -l pod=kaniko -f -n jenkins
@@ -23,11 +23,11 @@ pipeline {
         }
       }
     }
-    stage("Create") {
+    stage("Deploy") {
       steps {
         container(name: 'kube') {
           sh '''
-          sed -i "s#jagyas/service:0.0.[a-zA-Z0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#" backend-service.yaml
+          sed -i "s#${REGISTRY_USER}/${SERVICE}:0.0.[a-zA-Z0-9]\\+#${REGISTRY_USER}/${SERVICE}:0.0.${BUILD_NUMBER}#" backend-service.yaml
           kubectl apply -f backend-service.yaml
           '''
         }
