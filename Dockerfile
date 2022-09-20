@@ -36,7 +36,7 @@ RUN rm -rf node_modules/rxjs/_esm2015/
 RUN rm -rf node_modules/swagger-ui-dist/*.map
 RUN rm -rf node_modules/couchbase/src/
 
-FROM node:alpine
+FROM gcr.io/distroless/nodejs:18
 
 WORKDIR /usr/src/app
 
