@@ -22,19 +22,13 @@ pipeline {
           '''
         }
       }
+    stage("Create") {
       steps {
         container(name: 'kaniko') {
           sh '''
           sed -i "s#jagyas/service:0.0.[a-zA-Z0-9]\\+#jagyas/service:0.0.${BUILD_NUMBER}#" backend-service.yaml
           kubectl apply -f backend-service.yaml
           '''
-        }
-      }
-    }
-    stage("Create") {
-      steps {
-        container("knative") {
-          sh "kn service list"
         }
       }
     }
