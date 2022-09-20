@@ -8,6 +8,8 @@ spec:
     spec:
       containers:
         - image: jagyas/service:0.0.91
+          ports:
+          - containerPort: 3000
           env:
             - name: TARGET
               value: "Go Sample v1"
