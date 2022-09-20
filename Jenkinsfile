@@ -22,6 +22,7 @@ pipeline {
           '''
         }
       }
+    }
     stage("Create") {
       steps {
         container(name: 'kaniko') {
