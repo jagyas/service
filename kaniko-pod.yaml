@@ -25,8 +25,8 @@ spec:
     secret:
       secretName: regcred
       items:
-          - key: .dockerconfigjson
-            path: config.json
+        - key: .dockerconfigjson
+          path: config.json
   - name: kaniko-cache
     persistentVolumeClaim:
-            claimName: jenkins-pv-claim
+      claimName: jenkins-pv-claim
