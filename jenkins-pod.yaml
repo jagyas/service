@@ -10,7 +10,7 @@ spec:
     args:
       - 30m
     tty: true
-  - name: kaniko
+  - name: kube
     image: kubespheredev/kubectl:latest-arm64
     command:
     - cat
